@@ -25,9 +25,15 @@ class TripController extends Controller
 
         $trips = Trip::whereStatus('0')
             ->whereBetween('created_at', [$from_date, $to_date])
-            ->when($request->state_id != 'all' && $request->state_id != null, function ($q) use($request) {return $q->where('from', $request->state_id);})
-            ->when($request->car_id != 'all' && $request->car_id != null, function ($q) use($request) {return $q->where('car_id', $request->car_id);})
-            ->when($request->driver_id != 'all' && $request->driver_id != null, function ($q) use($request) {return $q->where('driver_id', $request->driver_id);})
+            ->when($request->state_id != 'all' && $request->state_id != null, function ($q) use ($request) {
+                return $q->where('from', $request->state_id);
+            })
+            ->when($request->car_id != 'all' && $request->car_id != null, function ($q) use ($request) {
+                return $q->where('car_id', $request->car_id);
+            })
+            ->when($request->driver_id != 'all' && $request->driver_id != null, function ($q) use ($request) {
+                return $q->where('driver_id', $request->driver_id);
+            })
             ->orderBy('created_at', 'DESC')
             ->paginate();
         $states = State::all();
@@ -52,6 +58,7 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
+      
         $request->validate([
             'from' => 'required | string',
             'to' => 'required | string',
@@ -61,7 +68,9 @@ class TripController extends Controller
 
         $trip = Trip::create($request->all());
 
-        if($trip) {
+  
+
+        if ($trip) {
             $trip->car->update([
                 'status' => 1
             ]);
@@ -102,8 +111,8 @@ class TripController extends Controller
     {
         $trip = Trip::find($id);
 
-        if($request->type) {
-            if($trip) {
+        if ($request->type) {
+            if ($trip) {
                 $trip->update([
                     'status' => 1
                 ]);
@@ -112,14 +121,14 @@ class TripController extends Controller
                     'status' => 0
                 ]);
             }
-        }else {
+        } else {
             $request->validate([
                 'from' => 'required | string',
                 'to' => 'required | string',
                 'car_id' => 'required | string',
                 'amount' => 'required | string',
             ]);
-    
+
             $trip->update($request->all());
         }
 
@@ -134,11 +143,10 @@ class TripController extends Controller
     public function destroy($id)
     {
         $trip = Trip::find($id);
-        
-        $trip->delete();
-        
-        return back()->with('success', 'تمت العملية بنجاح');
 
+        $trip->delete();
+
+        return back()->with('success', 'تمت العملية بنجاح');
     }
 
 
@@ -149,9 +157,15 @@ class TripController extends Controller
 
         $trips = Trip::whereStatus('1')
             ->whereBetween('created_at', [$from_date, $to_date])
-            ->when($request->state_id != 'all' && $request->state_id != null, function ($q) use($request) {return $q->where('from', $request->state_id);})
-            ->when($request->car_id != 'all' && $request->car_id != null, function ($q) use($request) {return $q->where('car_id', $request->car_id);})
-            ->when($request->driver_id != 'all' && $request->driver_id != null, function ($q) use($request) {return $q->where('driver_id', $request->driver_id);})
+            ->when($request->state_id != 'all' && $request->state_id != null, function ($q) use ($request) {
+                return $q->where('from', $request->state_id);
+            })
+            ->when($request->car_id != 'all' && $request->car_id != null, function ($q) use ($request) {
+                return $q->where('car_id', $request->car_id);
+            })
+            ->when($request->driver_id != 'all' && $request->driver_id != null, function ($q) use ($request) {
+                return $q->where('driver_id', $request->driver_id);
+            })
             ->orderBy('created_at', 'DESC')
             ->paginate();
         $states = State::all();

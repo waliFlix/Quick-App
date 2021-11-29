@@ -92,7 +92,9 @@
                             <th>رقم اللوحة</th>
                             <th>السائق</th>
                             <th>التكلفة</th>
+                            <th>الملاحظات</th>
                             <th>التاريخ</th>
+                            <th>الوقت المتوقع للوصول</th>
                             <th>الخيارات</th>
                         </tr>
 					</thead>
@@ -105,7 +107,10 @@
                                 <td>{{ $trip->car->car_number }}</td>
                                 <td>{{ $trip->driver->name ?? null }}</td>
                                 <td>{{ $trip->amount }}</td>
+                                <td>{{ $trip->note }}</td>
                                 <td>{{ $trip->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $trip->EstimatedTime }}</td>
+
                                 <td>
                                     @permission('trips-read')
                                         <a href="{{ route('trips.show', $trip->id) }}" class="btn btn-info btn-xs" > <i class="fa fa-eye"></i>  عرض</a>

@@ -13,7 +13,7 @@ class Trip extends Model
     public const STATUS_DEFAULT = 0;
     public const STATUS_DONE = 1;
 
-    protected $fillable = ['from', 'to', 'car_id', 'driver_id' , 'amount', 'status'];
+    protected $fillable = ['from', 'to', 'car_id', 'driver_id' , 'amount', 'status','note','EstimatedTime'];
     
     public function fromState() {
         return $this->belongsTo(State::class, 'from');
