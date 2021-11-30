@@ -93,6 +93,7 @@
                             <th>السائق</th>
                             <th>التكلفة</th>
                             <th>الملاحظات</th>
+                            <th>العميل</th>
                             <th>الوقت المتوقع للوصول</th>
                             <th>التاريخ</th>
                             <th>الخيارات</th>
@@ -108,6 +109,7 @@
                                 <td>{{ $trip->driver->name ?? null }}</td>
                                 <td>{{ $trip->amount }}</td>
                                 <td>{{ $trip->note }}</td>
+                                <td>{{ $trip->customer->name }}</td>
                                 <td>{{ $trip->EstimatedTime }}</td>
                                 <td>{{ $trip->created_at->format('Y-m-d') }}</td>
 
@@ -137,7 +139,7 @@
                                         @endif
                                     @endpermission
 
-                                 
+
                                 </td>
                             </tr>
                         @endforeach

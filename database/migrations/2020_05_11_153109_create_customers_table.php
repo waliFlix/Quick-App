@@ -11,7 +11,7 @@ class CreateCustomersTable extends Migration
     * @var string
     */
     public $tableName = 'customers';
-    
+
     /**
     * Run the migrations.
     * @table customers
@@ -21,28 +21,18 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create($this->tableName, function (Blueprint $table) {
-            
+
             $table->increments('id');
             $table->string('name', 145);
             $table->string('phone', 30);
-            $table->integer('bouns');
-            $table->integer('type');
-            $table->unsignedInteger('account_id');
-            
-            $table->index(["account_id"], 'customers_accounts1_idx');
+            $table->string('secendPhone',30)->nullable();
+            $table->string('email',50);
             $table->timestamps();
-            
-            
-            $table->foreign('account_id', 'customers_accounts1_idx')
-            ->references('id')->on('accounts')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
         });
         Schema::enableForeignKeyConstraints();
         \DB::statement('ALTER TABLE customers AUTO_INCREMENT = 100;');
     }
-    
+
     /**
     * Reverse the migrations.
     *

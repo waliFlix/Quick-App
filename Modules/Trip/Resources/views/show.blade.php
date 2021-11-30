@@ -44,6 +44,7 @@
                                     <th>اجمالى المنصرفات</th>
                                     <th>صافي الرحلة</th>
                                     <th>الملاحظات</th>
+                                    <th>العميل</th>
                                     <th>التاريخ</th>
                                     <th>الوقت المتوقع</th>
 
@@ -59,6 +60,7 @@
                                     <td>{{ $trip->getExpensesAmount->sum('amount') }}</td>
                                     <td>{{ $trip->amount - $trip->getExpensesAmount->sum('amount') }}</td>
                                     <td>{{ $trip->note }}</td>
+                                    <td>{{ $trip->customer->name     }}</td>
                                     <td>{{ $trip->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $trip->EstimatedTime }}</td>
                                 </tr>

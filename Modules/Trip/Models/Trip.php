@@ -2,6 +2,7 @@
 
 namespace Modules\Trip\Models;
 
+use App\Customer;
 use Modules\Trip\Models\Car;
 use Modules\Trip\Models\State;
 use Modules\Trip\Models\Driver;
@@ -13,8 +14,8 @@ class Trip extends Model
     public const STATUS_DEFAULT = 0;
     public const STATUS_DONE = 1;
 
-    protected $fillable = ['from', 'to', 'car_id', 'driver_id' , 'amount', 'status','note','EstimatedTime'];
-    
+    protected $fillable = ['from', 'to', 'car_id', 'driver_id' , 'amount', 'status','note','EstimatedTime','customer_id'];
+
     public function fromState() {
         return $this->belongsTo(State::class, 'from');
     }
@@ -33,5 +34,10 @@ class Trip extends Model
 
     public function getExpensesAmount() {
         return $this->hasMany(Expense::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class,'customer_id');
     }
 }

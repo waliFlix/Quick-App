@@ -21,8 +21,8 @@
                         <ul class="treeview-menu" style="display: none;">
 
                             <li class="{{ (request()->segment(1) == '') ? 'active' : '' }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i><span>  لوحة التحكم </span></a></li>
-                
-                            @permission('stores-read')
+
+                            {{-- @permission('stores-read')
                                 <li class="treeview {{ (request()->segment(1) == 'stores' || request()->segment(1) == 'transferstores') ? 'active' : '' }}">
                                     <a href="#">
                                         <i class="fa fa-home"></i> <span>المخازن</span>
@@ -55,8 +55,8 @@
 
                                     </ul>
                                 </li>
-                            @endpermission
-
+                            @endpermission --}}
+{{--
                             @permission(['items-read', 'categories-read' ,'units-read' ])
                                 <li class="treeview {{ in_array(request()->segment(1) , ['items-read', 'categories-read' ,'units-read' ]) ? 'active' : '' }}">
                                     <a href="#">
@@ -79,8 +79,8 @@
                                         @endpermission
                                     </ul>
                                 </li>
-                            @endpermission
-
+                            @endpermission --}}
+{{--
                             @permission('bills-read')
                                 <li class="treeview {{ (request()->segment(1) == 'bills') ? 'active' : '' }}">
                                     <a href="#">
@@ -117,8 +117,8 @@
 
                                     </ul>
                                 </li>
-                            @endpermission
-
+                            @endpermission --}}
+{{--
                             @permission('invoices-read')
                                 <li class="treeview {{ (request()->segment(1) == 'invoices') ? 'active' : '' }}">
                                     <a href="#">
@@ -154,7 +154,7 @@
                                         @endpermission
                                     </ul>
                                 </li>
-                            @endpermission
+                            @endpermission --}}
 
                             @permission(['safes-read','cheques-read', 'expenses-read','accounts-read'])
                                 <li class="treeview {{ in_array(request()->segment(1) , ['safes','cheques', 'expenses' ]) ? 'active' : '' }}">
@@ -165,7 +165,7 @@
                                         </span>
                                     </a>
                                     <ul class="treeview-menu" style="display: none;">
-                                        
+
 
                                         @permission('safes-read')
                                             <li class="{{ (request()->segment(1) == 'safes') ? 'active' : '' }}">
@@ -232,9 +232,9 @@
 
                         </ul>
                     </li>
-            @endpermission 
+            @endpermission
 
-            <!-- @permission('trips-read')
+            < @permission('trips-read')
                     <li class="treeview {{ (request()->segment(1) == 'stores' || request()->segment(1) == 'transferstores') ? 'active' : '' }}">
                         <a href="#">
                             <i class="fa fa-home"></i> <span>الرحلات</span>
@@ -271,7 +271,7 @@
 
                         </ul>
                     </li>
-            @endpermission  -->
+            @endpermission
 
             @permission('safes-print')
                 <li class="treeview {{ (request()->segment(1) == 'stores' || request()->segment(1) == 'transferstores') ? 'active' : '' }}">
@@ -282,12 +282,12 @@
                             </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('reports.stores') }}">
                                 <i class="fa fa-angle-double-left"></i>
                                 المخازن
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('reports.safes') }}">
                                 <i class="fa fa-angle-double-left"></i>
@@ -300,24 +300,24 @@
                                 حركة الخزنة
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('reports.quantities') }}">
                                 <i class="fa fa-angle-double-left"></i>
                                 الكميات
                             </a>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a href="{{ route('reports.purchases') }}">
                                 <i class="fa fa-angle-double-left"></i>
                                 المشتريات
                             </a>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a href="{{ route('reports.sells') }}">
                                 <i class="fa fa-angle-double-left"></i>
                                 المبيعات
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('reports.profit') }}">
                                 <i class="fa fa-angle-double-left"></i>
@@ -326,7 +326,7 @@
                         </li>
                     </ul>
                 </li>
-            @endpermission 
+            @endpermission
 
 
         </ul>

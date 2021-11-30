@@ -18,41 +18,17 @@
                   <label>رقم الهاتف</label>
                   <input  class="form-control" autocomplete="off" minlength="10" maxlength="30"		 type="text" name="phone" placeholder="رقم الهاتف">
 			  </div>
-			  <div class="form-group">
-                  <label>النسبة</label>
-                  <input  class="form-control" autocomplete="off" type="text" name="bouns" placeholder="النسبة">
-			  </div>
-			  <div class="form-check">
-                  <label>النوع</label>
-                  <div class="form-check">
-					<input class="form-check-input" type="radio" name="type" id="exampleRadios1" value="1" checked>
-					<label class="form-check-label" for="exampleRadios1">
-						 فرد
-					</label>
-					</div>
-					<div class="form-check">
-					<input class="form-check-input" type="radio" name="type" id="exampleRadios2" value="2">
-					<label class="form-check-label" for="exampleRadios2">
-						وكيل
-					</label>
-					</div>
-					<div class="form-check">
-					<input class="form-check-input" type="radio" name="type" id="exampleRadios3" value="3">
-					<label class="form-check-label" for="exampleRadios3">
-						أخرى
-					</label>
-					</div>
-			  </div>
-              <fieldset class="form-group">
-				  <legend>المخازن</legend>
-				  @foreach (auth()->user()->getStores() as $store)
-					  <label class="col-xs-12 col-md-6">
-						  <input type="checkbox" name="stores[]" value="{{ $store->id }}" checked>
-						  <span>{{ $store->name }}</span>
-					  </label>
-				  @endforeach
-			  </fieldset>
-          </div>
+		
+              <div class="form-group">
+                <label>الايميل</label>
+                <input  class="form-control" autocomplete="off" type="email" name="email" placeholder="you@exmaple.com">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف الاضافي</label>
+                <input  class="form-control" autocomplete="off" minlength="10" maxlength="30" type="text" name="secendPhone" placeholder="رقم الهاتف">
+            </div>
+
+
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
               <button type="submit" class="btn btn-primary">حفظ</button>
@@ -116,7 +92,7 @@
 			$('#customerModal input[name="name"]').val($(this).data('name'))
 			$('#customerModal input[name="phone"]').val($(this).data('phone'))
 			$('#customerModal input[name="address"]').val($(this).data('address'))
-		
+
 			$('#customerModal .preview').hide()
 			$('#customerModal .form').show()
 		}
@@ -129,7 +105,7 @@
 			$('.balance').text($(this).data('balance'))
 			$('.phone').text($(this).data('phone'))
 			$('#customerModal .preview form').hide()
-		}	
+		}
 		else if($(this).hasClass("confirm-delete")){
 			$('#customerModal .preview').show()
 			$('#customerModal .preview form').attr('action', $(this).data('action'))
@@ -140,14 +116,14 @@
 			$('.name').text($(this).data('name'))
 			$('.balance').text($(this).data('balance'))
 			$('.phone').text($(this).data('phone'))
-		}	
+		}
 		else{
 			$('#customerModal .preview').hide()
 			$('#customerModal .form').show()
 
 			$('#customerModal .form').attr('action', "{{ route('customers.store') }}")
 			$('#customerModal .modal-title').text('إضافة عميل')
-		
+
 
 			//delete data from inputs
 			$('#customerModal input[name="name"]').val('')
