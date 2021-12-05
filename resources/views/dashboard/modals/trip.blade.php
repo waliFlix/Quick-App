@@ -1,6 +1,9 @@
 @include('dashboard.modals.scripts')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
 <div class="modal fade" id="tripModal" tabindex="-1" role="dialog" aria-labelledby="tripsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -46,6 +49,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label> العميل</label>
+                        <select id="customer" name="customer_id" class="from-control">
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>التكلفة</label>
                         <input class="form-control" autocomplete="off" type="text" name="amount"
                             placeholder="التكلفة">
@@ -55,9 +66,12 @@
                         <textarea name="note" class="form-control"></textarea>
                     </div>
 
-
+                    <div class="form-group">
+                        <label>المحطات الوسطيه</label>
+                        <input id="input" type="text" value="Istanbul, Adana, Adiyaman, Afyon, Agri, Aksaray, Ankara" data-role="tagsinput" class="form-control" />
+                    </div>
                     <div>
-                        <span>اختيار الزمن مع التاريح</span>
+                        <span>زمن الوصول</span>
                         <div class='input-group date' id='datetimepicker2'>
                             <input type='text' class="form-control"  name="EstimatedTime"/>
                             <span class="input-group-addon">
@@ -149,6 +163,15 @@
                     }
                 })
 
+                //customers
+                let selectedCustomerId = $(this).data('customer_id')
+                let customerList = $('#tripModal select[id="customer"] option');
+                customerList.each(function() {
+                    if ($(this).val() == selectedCustomerId) {
+                        $(this).attr('selected', true).trigger("change")
+                    }
+                })
+
                 // driver
                 let selectedDriverIds = $(this).data('driver_id')
                 let driverList = $('#tripModal select[id="driver"] option');
@@ -178,11 +201,20 @@
                 $('#tripModal .form').remove('input[name="_method"]')
 
                 $('#tripModal input[name="amount"]').val('')
+                // $('#tags_id').tagsinput('items');
 
             }
+            //date timepicker function
             $('#datetimepicker2').datetimepicker({
                 format:'HH:mm'
             });
+
+
+//             $(document).ready(function(){
+//   alert($('#input').tagsinput('items'));
+// });
+
+
 
             $('#tripModal').modal('show')
 

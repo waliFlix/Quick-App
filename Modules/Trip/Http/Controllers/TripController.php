@@ -2,6 +2,7 @@
 
 namespace Modules\Trip\Http\Controllers;
 
+use App\Customer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Trip\Models\Car;
@@ -37,9 +38,10 @@ class TripController extends Controller
             ->orderBy('created_at', 'DESC')
             ->paginate();
         $states = State::all();
+        $customers=Customer::all();
         $cars = Car::get();
         $drivers = Driver::get();
-        return view('trip::index', compact('trips', 'states', 'cars', 'drivers'));
+        return view('trip::index', compact('trips', 'states', 'cars', 'drivers','customers'));
     }
 
     /**
@@ -48,7 +50,8 @@ class TripController extends Controller
      */
     public function create()
     {
-        return view('trip::create');
+        dd('hi');
+        // return view('trip::create');
     }
 
     /**
@@ -58,17 +61,16 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-      
         $request->validate([
             'from' => 'required | string',
             'to' => 'required | string',
             'car_id' => 'required | string',
             'amount' => 'required | string',
+            'customer_id'=>'required|string',
         ]);
 
         $trip = Trip::create($request->all());
 
-  
 
         if ($trip) {
             $trip->car->update([

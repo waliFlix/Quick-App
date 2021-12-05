@@ -12,17 +12,16 @@
 		}
 		.form-inline .form-control {
 			padding: 0px 8px;
-		}	
+		}
 	</style>
 @endpush
-	
+
 @section('content')
     @component('partials._breadcrumb')
         @slot('title', ['الرحلات'])
         @slot('url', ['#'])
         @slot('icon', ['list'])
     @endcomponent
-		
 		<div class="box box-primary">
 			<div class="box-header">
 				<h4 class="box-title">
@@ -50,7 +49,11 @@
                                 </option>
 							@endforeach
                         </select>
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
                         <label for="car_id">المركبة</label>
 						<select name="car_id" id="car_id" class="form-control select2">
 							<option value="all" {{ (request()->car_id === 'all') ? 'selected' : '' }}>الكل</option>
@@ -59,7 +62,11 @@
                                 </option>
 							@endforeach
                         </select>
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
                         <label for="driver_id">السائق</label>
 						<select name="driver_id" id="driver_id" class="form-control select2">
 							<option value="all" {{ (request()->driver_id === 'all') ? 'selected' : '' }}>الكل</option>
@@ -68,13 +75,13 @@
                                 </option>
 							@endforeach
 						</select>
-						
+
 						<label for="from-date">من</label>
 						<input type="date" name="from_date" id="from-date" value="{{ request()->from_date }}" class="form-control">
-                        
+
                         <label for="to-date">الى</label>
 						<input type="date" name="to_date" id="to-date" value="{{ request()->to_date }}" class="form-control">
-                        
+
                         <button type="submit" class="btn btn-primary">
 							<i class="fa fa-search"></i>
 							<span></span>
@@ -93,8 +100,9 @@
                             <th>السائق</th>
                             <th>التكلفة</th>
                             <th>الملاحظات</th>
-                            <th>التاريخ</th>
+                            <th>العميل</th>
                             <th>الوقت المتوقع للوصول</th>
+                            <th>التاريخ</th>
                             <th>الخيارات</th>
                         </tr>
 					</thead>
@@ -108,8 +116,10 @@
                                 <td>{{ $trip->driver->name ?? null }}</td>
                                 <td>{{ $trip->amount }}</td>
                                 <td>{{ $trip->note }}</td>
-                                <td>{{ $trip->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $trip->customer->name }}</td>
                                 <td>{{ $trip->EstimatedTime }}</td>
+                                <td>{{ $trip->created_at->format('Y-m-d') }}</td>
+
 
                                 <td>
                                     @permission('trips-read')
@@ -129,20 +139,13 @@
 
                                         @if($trip->status == 0)
                                             <form style="display:inline-block" action="{{ route('trips.update', $trip->id) }}?type=done" method="post">
-                                                @csrf 
+                                                @csrf
                                                 @method('PUT')
                                                 <button class="btn btn-success btn-xs" type="submit"><i class="fa fa-check"></i> تمت </button>
                                             </form>
                                         @endif
                                     @endpermission
 
-                                    {{-- @permission('trips-delete')
-                                        <form style="display:inline-block" action="{{ route('trips.destroy', $trip->id) }}" method="post">
-                                            @csrf 
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash"></i> حذف</button>
-                                        </form>
-                                    @endpermission --}}
                                 </td>
                             </tr>
                         @endforeach

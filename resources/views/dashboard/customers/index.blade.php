@@ -25,11 +25,11 @@
                         <a href="http://localhost:8000/export/customers" class="btn btn-success btn-sm">
                             <i class="fa fa-file-excel-o"> تصدير</i>
                         </a>
-                
+
                         <a href="http://localhost:8000/example/excel" class="btn btn-success btn-sm">
                             <i class="fa fa-file-excel-o"> نموذج</i>
                         </a>
-                
+
                         <form style="display:inline-block !important;" action="http://localhost:8000/imports/customers" method="post"
                             enctype="multipart/form-data" novalidate="" class="btn btn-success btn-sm">
                             @csrf
@@ -48,8 +48,8 @@
                     <tr>
                         <th>اسم العميل</th>
                         <th>رقم الهاتف</th>
-                        <th>النوع</th>
-                        <th>النسبة</th>
+                        <th>الايميل</th>
+                        <th>رقم الهاتف الاضافي</th>
                         <th>الرصيد</th>
                         <th>الخيارات</th>
                     </tr>
@@ -59,16 +59,9 @@
                         <tr>
                             <td>{{ $customer->name }}</td>
                             <td>{{ $customer->phone }}</td>
-                            <td>@if($customer->type == 1) 
-                                    فرد
-                                @elseif($customer->type == 2)
-                                    وكيل
-                                @else
-                                    اخرى
+                            <td>{{ $customer->email }}</td>
+                            <td>{{ $customer->secendPhone }}</td>
 
-                                @endif
-                            </td>
-                            <td>{{ $customer->bouns}}</td>
                             <td>{{ number_format($customer->balance(), 2) }}</td>
                             <td>
                                 <div class="btn-group">
@@ -76,7 +69,6 @@
                                         <a class="btn btn-primary btn-xs" href="{{ route('customers.statement', $customer) }}"><i class="fa fa-list"></i> كشف حساب </a>
                                         <a class="btn btn-info btn-xs" href="{{ route('customers.show', $customer->id) }}"><i class="fa fa-eye"></i> عرض </a>
                                     @endpermission
-    
                                     <a class="btn btn-default btn-xs showCustomerModal preview" data-balance="{{ $customer->balance() }}" data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" data-phone="{{ $customer->phone }}">
                                         <i class="fa fa-list"></i>
                                         <span>تفاصيل</span>
@@ -88,7 +80,7 @@
 
                                 @permission('customers-delete')
                                     <a class="btn btn-danger btn-xs showCustomerModal confirm-delete" data-balance="{{ $customer->balance() }}"
-                                        data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" 
+                                        data-id="{{ $customer->id }}" data-name="{{ $customer->name }}"
                                         data-phone="{{ $customer->phone }}"
                                         data-action="{{ route('customers.destroy', $customer) }}"
                                     >
