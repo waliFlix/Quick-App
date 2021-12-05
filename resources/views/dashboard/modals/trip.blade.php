@@ -1,9 +1,17 @@
 @include('dashboard.modals.scripts')
 
-<<<<<<< HEAD
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
-=======
->>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+
+
 <div class="modal fade" id="tripModal" tabindex="-1" role="dialog" aria-labelledby="tripsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,12 +76,19 @@
 
                     <div class="form-group">
                         <label>المحطات الوسطيه</label>
-                        <input id="input" type="text" value="Istanbul, Adana, Adiyaman, Afyon, Agri, Aksaray, Ankara" data-role="tagsinput" class="form-control" />
+
+                        <div class="input-group">
+                            <input type="text" class="bootstrap-tagsinput form-control" data-role="tagsinput"
+                                value="Amsterdam,Washington,Sydney,Beijing,Cairo" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
                     </div>
                     <div>
                         <span>زمن الوصول</span>
                         <div class='input-group date' id='datetimepicker2'>
-                            <input type='text' class="form-control"  name="EstimatedTime"/>
+                            <input type='text' class="form-control" name="EstimatedTime" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -204,19 +219,13 @@
                 // $('#tags_id').tagsinput('items');
 
             }
-            //date timepicker function
+
+            // date timepicker function
             $('#datetimepicker2').datetimepicker({
-                format:'HH:mm'
+                format: 'HH:mm'
             });
 
-
-//             $(document).ready(function(){
-//   alert($('#input').tagsinput('items'));
-// });
-
-
-
-            $('#tripModal').modal('show')
+            $('#tripModal').modal('show');
 
         })
     </script>
