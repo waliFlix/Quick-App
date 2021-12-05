@@ -20,7 +20,7 @@
                         </a>
                         <ul class="treeview-menu" style="display: none;">
 
-                            <li class="{{ (request()->segment(1) == '') ? 'active' : '' }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i><span>  لوحة التحكم </span></a></li>
+                            {{-- <li class="{{ (request()->segment(1) == '') ? 'active' : '' }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i><span>  لوحة التحكم </span></a></li> --}}
 
                             {{-- @permission('stores-read')
                                 <li class="treeview {{ (request()->segment(1) == 'stores' || request()->segment(1) == 'transferstores') ? 'active' : '' }}">
