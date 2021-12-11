@@ -79,9 +79,9 @@
 
                         <div class="input-group">
                             <input type="text" class="bootstrap-tagsinput form-control" data-role="tagsinput"
-                                value="Amsterdam,Washington,Sydney,Beijing,Cairo" />
+                                 name="mids" multiple="" />
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
+                              
                             </span>
                         </div>
                     </div>
@@ -149,6 +149,10 @@
 
                 //set fields data
                 $('#tripModal input[name="amount"]').val($(this).data('amount'))
+                $('#tripModal input[name="mids"]').val($(this).data('mids'))
+                $('#tripModal input[name="EstimatedTime"]').val($(this).data('EstimatedTime'))
+
+
 
 
                 // from state

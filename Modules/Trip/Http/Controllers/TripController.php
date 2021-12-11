@@ -3,6 +3,7 @@
 namespace Modules\Trip\Http\Controllers;
 
 use App\Customer;
+use App\Mid;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Trip\Models\Car;
@@ -35,13 +36,16 @@ class TripController extends Controller
             ->when($request->driver_id != 'all' && $request->driver_id != null, function ($q) use ($request) {
                 return $q->where('driver_id', $request->driver_id);
             })
+
+
             ->orderBy('created_at', 'DESC')
             ->paginate();
         $states = State::all();
-        $customers=Customer::all();
+        $customers = Customer::all();
         $cars = Car::get();
         $drivers = Driver::get();
-        return view('trip::index', compact('trips', 'states', 'cars', 'drivers','customers'));
+
+        return view('trip::index', compact('trips', 'states', 'cars', 'drivers', 'customers'));
     }
 
     /**
@@ -50,8 +54,8 @@ class TripController extends Controller
      */
     public function create()
     {
-        dd('hi');
-        // return view('trip::create');
+        // dd('hi');
+        return view('trip::create');
     }
 
     /**
@@ -61,15 +65,31 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+
         $request->validate([
             'from' => 'required | string',
             'to' => 'required | string',
             'car_id' => 'required | string',
             'amount' => 'required | string',
-            'customer_id'=>'required|string',
+            'customer_id' => 'required|string',
+
         ]);
 
+
         $trip = Trip::create($request->all());
+
+        $mids = explode(",", $request->mids);
+
+
+        foreach ($mids as $key => $value) {
+            Mid::create([
+                'name' => $mids[$key],
+                'trip_id' => $trip->id
+            ]);
+        }
 
 
         if ($trip) {
@@ -111,7 +131,23 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        dd($request->all());
+        
         $trip = Trip::find($id);
+
+
+
+        // if ($request->has('mids')) {
+        //     foreach ($trip->mids as $key => $value) {
+        //         $s = Mid::create([
+        //             'name' => $mids[$key],
+        //             'trip_id' => $trip->id,
+        //             //other columns
+        //         ]);
+        //     }
+        // }
+
 
         if ($request->type) {
             if ($trip) {
@@ -125,8 +161,6 @@ class TripController extends Controller
             }
         } else {
             $request->validate([
-                'from' => 'required | string',
-                'to' => 'required | string',
                 'car_id' => 'required | string',
                 'amount' => 'required | string',
             ]);

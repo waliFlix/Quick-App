@@ -47,6 +47,7 @@
                                     <th>العميل</th>
                                     <th>التاريخ</th>
                                     <th>الوقت المتوقع</th>
+                                    <th> المحطات الوسطيه</th>
 
                                 </tr>
                             </thead>
@@ -60,9 +61,15 @@
                                     <td>{{ $trip->getExpensesAmount->sum('amount') }}</td>
                                     <td>{{ $trip->amount - $trip->getExpensesAmount->sum('amount') }}</td>
                                     <td>{{ $trip->note }}</td>
-                                    <td>{{ $trip->customer->name     }}</td>
+                                    <td>{{ $trip->customer->name?? null }}</td>
                                     <td>{{ $trip->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $trip->EstimatedTime }}</td>
+                                    <td>{{ str_replace(["[","]","\""], '',$trip->mids->pluck('name'),) ?? null}}</td>  
+                                  
+                                    
+                                  
+                                   
+
                                 </tr>
                             </tbody>
                         </table>

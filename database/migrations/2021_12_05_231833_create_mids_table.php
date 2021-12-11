@@ -16,12 +16,14 @@ class CreateMidsTable extends Migration
         Schema::create('mids', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->unsignedBigInteger('trip_id');
             $table->timestamps();
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');
         });
 
-        Schema::table('trips', function (Blueprint $table) {
-			$table->foreign('mid_id')->references('id')->on('mids')->onDelete('cascade');
-		});
+      
+	
+	
 
     }
 

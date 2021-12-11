@@ -49,11 +49,8 @@
                                 </option>
 							@endforeach
                         </select>
-<<<<<<< HEAD
-                        
-=======
 
->>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
+
                         <label for="car_id">المركبة</label>
 						<select name="car_id" id="car_id" class="form-control select2">
 							<option value="all" {{ (request()->car_id === 'all') ? 'selected' : '' }}>الكل</option>
@@ -62,11 +59,6 @@
                                 </option>
 							@endforeach
                         </select>
-<<<<<<< HEAD
-                        
-=======
-
->>>>>>> 4baa43826c1768d7c8f0d9b1df6863fc84a2b51f
                         <label for="driver_id">السائق</label>
 						<select name="driver_id" id="driver_id" class="form-control select2">
 							<option value="all" {{ (request()->driver_id === 'all') ? 'selected' : '' }}>الكل</option>
@@ -101,9 +93,11 @@
                             <th>التكلفة</th>
                             <th>الملاحظات</th>
                             <th>العميل</th>
-                            <th>الوقت المتوقع للوصول</th>
+                            <th>وقت الوصول</th>
+                           <th>المحطات</th>
                             <th>التاريخ</th>
                             <th>الخيارات</th>
+                         
                         </tr>
 					</thead>
                     <tbody>
@@ -116,9 +110,14 @@
                                 <td>{{ $trip->driver->name ?? null }}</td>
                                 <td>{{ $trip->amount }}</td>
                                 <td>{{ $trip->note }}</td>
-                                <td>{{ $trip->customer->name }}</td>
+                                <td>{{ $trip->customer->name ?? null }}</td>
                                 <td>{{ $trip->EstimatedTime }}</td>
+                             
+                                <td>{{ str_replace(["[","]","\""], '',$trip->mids->pluck('name')) ?? null}}</td>  
+                               
+                               
                                 <td>{{ $trip->created_at->format('Y-m-d') }}</td>
+                          
 
 
                                 <td>
@@ -132,6 +131,8 @@
                                             data-amount="{{ $trip->amount }}"
                                             data-car_id="{{ $trip->car_id }}"
                                             data-driver_id="{{ $trip->driver_id }}"
+                                            data-note="{{ $trip->note }}"
+                                            data-EstimatedTime="{{ $trip->EstimatedTime }}"
                                             data-action="{{ route('trips.update', $trip->id) }}"
                                         ><i class="fa fa-edit"></i> تعديل</a>
 
@@ -149,6 +150,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                    
                     </tbody>
 				</table>
 				{{ $trips->links() }}

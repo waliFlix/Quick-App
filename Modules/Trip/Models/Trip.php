@@ -24,7 +24,7 @@ class Trip extends Model
 
     public function mids()
     {
-        return $this->belongsTo(Mid::class);
+        return $this->hasMany(Mid::class);
     }
     public function toState()
     {
