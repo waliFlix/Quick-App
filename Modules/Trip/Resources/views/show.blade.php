@@ -111,7 +111,9 @@
                 </div>
 
 
-
+                <a href="/send-email/{{$trip->id}}">
+                    <button type="submit" class="btn btn-primary">Send Email</button>
+                </a>
 
             @endsection
 

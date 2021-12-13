@@ -13,6 +13,8 @@ use Modules\Trip\Models\Driver;
 use Modules\Trip\Models\Expense;
 use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Mail;
+use LengthException;
 
 class TripController extends Controller
 {
@@ -97,8 +99,6 @@ class TripController extends Controller
                 'status' => 1
             ]);
         }
-
-        return back()->with('success', 'تمت العملية بنجاح');
     }
 
     /**
@@ -131,24 +131,20 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        dd($request->all());
-        
         $trip = Trip::find($id);
+       
 
+        $mids = explode(",", $request->mids);
+        // dd($mids);
+   
+        foreach($mids as $key=>$vlaue)
+        {
+         Mid::where('trip_id',$id)->update([
+             'name' =>$mids[$key]
+            ]);
 
-
-        // if ($request->has('mids')) {
-        //     foreach ($trip->mids as $key => $value) {
-        //         $s = Mid::create([
-        //             'name' => $mids[$key],
-        //             'trip_id' => $trip->id,
-        //             //other columns
-        //         ]);
-        //     }
-        // }
-
-
+        }
+        
         if ($request->type) {
             if ($trip) {
                 $trip->update([
