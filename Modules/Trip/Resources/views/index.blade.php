@@ -47,8 +47,8 @@
                                     <select name="state_id" id="state_id" class="form-control select2">
                                         <option value="all" {{ request()->state_id == 'all' ? 'selected' : '' }}>الكل</option>
                                         @foreach ($states as $state)
-                                            <option value="{{ $state->id }}"
-                                                {{ request()->state_id == $state->id ? 'selected' : '' }}>{{ $state->name }}
+                                            <option value="{{ $state->id }}" {{ request()->state_id == $state->id ? 'selected' : '' }}>
+                                                {{ $state->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -119,13 +119,8 @@
                                             <td>{{ $trip->note }}</td>
                                             <td>{{ $trip->customer->name ?? null }}</td>
                                             <td>{{ $trip->EstimatedTime }}</td>
-
-                                            <td>{{ str_replace(['[', ']', "\""], '', $trip->mids->pluck('name')) ?? null }}</td>
-
-
+                                            <td>{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) ?? null }}</td>
                                             <td>{{ $trip->created_at->format('Y-m-d') }}</td>
-
-
 
                                             <td>
                                                 @permission('trips-read')
@@ -138,11 +133,12 @@
                                                             data-amount="{{ $trip->amount }}" data-car_id="{{ $trip->car_id }}"
                                                             data-driver_id="{{ $trip->driver_id }}" data-note="{{ $trip->note }}"
                                                             data-EstimatedTime="{{ $trip->EstimatedTime }}"
-                                                            data-action="{{ route('trips.update', $trip->id) }}"><i class="fa fa-edit"></i>
+                                                            data-stations="{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) }}"
+                                                            data-action="{{ route('trips.update', $trip->id) }}">
+                                                            <i class="fa fa-edit">
+                                                            
+                                                            </i>
                                                             تعديل</a>
-
-
-
                                                         @if ($trip->status == 0)
                                                             <form style="display:inline-block"
                                                                 action="{{ route('trips.update', $trip->id) }}?type=done" method="post">
@@ -163,7 +159,7 @@
                                     {{ $trips->links() }}
                                 </div>
                             </div>
-                         
+
                         @endsection
 
                         @push('js')

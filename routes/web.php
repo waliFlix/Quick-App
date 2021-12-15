@@ -134,4 +134,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'management'], function () {
 
 Route::get('/send-email/{trip}', 'TripMailController@sendEmail');
 
+Route::get('/trip-invoice/{trip}','InvoiceController@invoice');
+Route::get('/station/{trip}','SubStationsController@show');
+
 Auth::routes();

@@ -3,7 +3,7 @@
 namespace Modules\Trip\Models;
 
 use App\Customer;
-use App\Mid;
+use App\SubStations;
 use Modules\Trip\Models\Car;
 use Modules\Trip\Models\State;
 use Modules\Trip\Models\Driver;
@@ -22,9 +22,9 @@ class Trip extends Model
         return $this->belongsTo(State::class, 'from');
     }
 
-    public function mids()
+    public function stations()
     {
-        return $this->hasMany(Mid::class);
+        return $this->hasMany(SubStations::class);
     }
     public function toState()
     {

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMidsTable extends Migration
+class CreateSubStationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,13 @@ class CreateMidsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mids', function (Blueprint $table) {
+        Schema::create('sub_stations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('trip_id');
             $table->timestamps();
             $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade');
         });
-
-      
-	
-	
-
     }
 
     /**
@@ -34,6 +29,6 @@ class CreateMidsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mids');
+        Schema::dropIfExists('sub_stations');
     }
 }

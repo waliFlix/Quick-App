@@ -3,7 +3,7 @@
 namespace Modules\Trip\Http\Controllers;
 
 use App\Customer;
-use App\Mid;
+use App\SubStations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Trip\Models\Car;
@@ -13,8 +13,7 @@ use Modules\Trip\Models\Driver;
 use Modules\Trip\Models\Expense;
 use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Facades\Mail;
-use LengthException;
+
 
 class TripController extends Controller
 {
@@ -68,27 +67,24 @@ class TripController extends Controller
     public function store(Request $request)
     {
 
-
-
-
         $request->validate([
             'from' => 'required | string',
             'to' => 'required | string',
             'car_id' => 'required | string',
             'amount' => 'required | string',
             'customer_id' => 'required|string',
-
         ]);
 
 
         $trip = Trip::create($request->all());
 
-        $mids = explode(",", $request->mids);
+
+        $stations = explode(",", $request->stations);
 
 
-        foreach ($mids as $key => $value) {
-            Mid::create([
-                'name' => $mids[$key],
+        foreach ($stations as $key => $value) {
+            SubStations::create([
+                'name' => $stations[$key],
                 'trip_id' => $trip->id
             ]);
         }
@@ -99,6 +95,8 @@ class TripController extends Controller
                 'status' => 1
             ]);
         }
+
+        return back()->with('success', 'تمت العملية بنجاح');
     }
 
     /**
@@ -132,19 +130,26 @@ class TripController extends Controller
     public function update(Request $request, $id)
     {
         $trip = Trip::find($id);
-       
 
-        $mids = explode(",", $request->mids);
-        // dd($mids);
-   
-        foreach($mids as $key=>$vlaue)
-        {
-         Mid::where('trip_id',$id)->update([
-             'name' =>$mids[$key]
-            ]);
 
+        $stations = explode(",", $request->stations);
+
+        $x = SubStations::where('trip_id', $id)->get();
+
+
+        if (count($stations) > count($x)) {
+            return back()->withErrors(' المحطات المدخله اكتر من الموجوده');
+        } else {
+
+            for ($i = 0; $i < count($x); $i++) {
+
+
+                $x[$i]->update([
+                    'name' => $stations[$i],
+                ]);
+            }
         }
-        
+
         if ($request->type) {
             if ($trip) {
                 $trip->update([

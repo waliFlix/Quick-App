@@ -79,7 +79,7 @@
 
                         <div class="input-group">
                             <input type="text" class="bootstrap-tagsinput form-control" data-role="tagsinput"
-                                 name="mids" multiple="" />
+                                 name="stations" />
                             <span class="input-group-btn">
                               
                             </span>
@@ -149,7 +149,7 @@
 
                 //set fields data
                 $('#tripModal input[name="amount"]').val($(this).data('amount'))
-                $('#tripModal input[name="mids"]').val($(this).data('mids'))
+                $('#tripModal input[name="subStations"]').val($(this).data('subStations'))
                 $('#tripModal input[name="EstimatedTime"]').val($(this).data('EstimatedTime'))
 
 

@@ -1,20 +1,9 @@
 @extends('layouts.dashboard.app', ['datatable' => true])
 
-@section('title', 'الرحلات')
+@section('title', 'الرحلات الوسطيه')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('dashboard/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <style>
-        .well {
-            margin: 15px 0px;
-            font-size: 13px;
-            padding: 8px;
-        }
-
-        .form-inline .form-control {
-            padding: 0px 8px;
-        }
-
         #progress {
             position: relative;
             margin-bottom: 30px;
@@ -72,9 +61,9 @@
         #progress-num .step {
             border: 3px solid lightgray;
             border-radius: 100%;
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
+            width: 65px;
+            height: 65px;
+            line-height: 65px;
             text-align: center;
             background-color: #fff;
             font-family: sans-serif;
@@ -145,48 +134,40 @@
                     </div>
                 </div>
 
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h4 class="box-title">
-                            <i class="fa fa-list-alt"></i>
-                            <span>منصرفات الرحلة</span>
-                        </h4>
-                    </div>
-                    <div class="box-body">
-                        <table id="bills-table" class="table table-bordered table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th>رقم الرحلة</th>
-                                    <th>المنصرف</th>
-                                    <th>نوع المنصرف</th>
-                                    <th>ملاحظات</th>
-                                    <th>التاريح</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($expenses as $expense)
-                                    <tr>
-                                        <td>{{ $expense->trip_id }}</td>
-                                        <td>{{ $expense->amount }}</td>
-                                        <td>{{ $expense->expense_type }}</td>
-                                        <td>{{ $expense->notes }}</td>
-                                        <td>{{ $expense->created_at->format('Y-m-d') }}</td>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+
+                <div>
+                    <div id="progress">
+                        <div id="progress-bar"></div>
+                        <ul id="progress-num">
+                            <li class="step active">{{ $trip->fromState->name }}</li>
+                            @foreach ($trip->stations as $item)
+                                <li class="step">{{ $item['name'] }}</li>
+                            @endforeach
+
+                            <li class="step">{{ $trip->toState->name }}</li>
+                        </ul>
+
+
                     </div>
+                    
+                    <button id="progress-next" class="btn">تعديل المحطه</button>
+                    <button id="progress-prev" class="btn" disabled></button>
+
                 </div>
 
-
-
-                <div style="display:flex; aligin-item:center; height:10%; ">
-                    <a href="/station/{{ $trip->id }}" style="bottom:10px; left:10%">
-                        <button type="submit" class="btn btn-primary"> تعديل المحطه </button>
+                <div class="flex-1">
+                    <a href="/send-email/{{ $trip->id }}">
+                        <button type="submit" class="btn btn-primary">ارسال بريد الكتروني</button>
                     </a>
                 </div>
 
+
+                <div>
+                    <a href="/trip-invoice/{{ $trip->id }}">
+                        <button type="submit" class="btn btn-primary"> PDF </button>
+                    </a>
+                </div>
 
             @endsection
 
@@ -197,6 +178,50 @@
                             ordering: false,
                         })
                     });
+                    const progressBar = document.getElementById("progress-bar");
+                    const progressNext = document.getElementById("progress-next");
+                    const progressPrev = document.getElementById("progress-prev");
+                    const steps = document.querySelectorAll(".step");
+                    let active = 1;
+
+
+                    progressNext.addEventListener("click", () => {
+                        active++;
+                        if (active > steps.length) {
+                            active = steps.length;
+                        }
+                        updateProgress();
+                    });
+
+                    progressPrev.addEventListener("click", () => {
+                        active--;
+                        if (active < 1) {
+                            active = 1;
+                        }
+                        updateProgress();
+                    });
+
+                    const updateProgress = () => {
+                        // toggle active class on list items
+                        steps.forEach((step, i) => {
+                            if (i < active) {
+                                step.classList.add("active");
+                            } else {
+                                step.classList.remove("active");
+                            }
+                        });
+                        // set progress bar width  
+                        progressBar.style.width =
+                            ((active - 1) / (steps.length - 1)) * 100 + "%";
+                        // enable disable prev and next buttons
+                        if (active === 1) {
+                            progressPrev.disabled = true;
+                        } else if (active === steps.length) {
+                            progressNext.disabled = true;
+                        } else {
+                            progressPrev.disabled = false;
+                            progressNext.disabled = false;
+                        }
                     };
                 </script>
             @endpush

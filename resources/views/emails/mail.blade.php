@@ -40,7 +40,7 @@
                         <td class="mr-2">{{ $trip->customer->name ?? null }}</td>
                         <td>{{ $trip->EstimatedTime }}</td>
                      
-                        <td>{{ str_replace(["[","]","\""], '',$trip->mids->pluck('name')) ?? null}}</td>  
+                        <td>{{ str_replace(["[","]","\""], '',$trip->stations->pluck('name')) ?? null}}</td>  
                        
                        
                         <td>{{ $trip->created_at->format('Y-m-d') }}</td>

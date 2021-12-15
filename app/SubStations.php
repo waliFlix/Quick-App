@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Trip\Models\Trip;
 
-class Mid extends Model
+class SubStations extends Model
 {
     protected $guarded=[];
 

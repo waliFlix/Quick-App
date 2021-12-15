@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 use App\{Invoice, Bill, BillItem};
 use Illuminate\Support\Collection;
 use App\{Cheque, Safe, Payment, Expense};
+use Barryvdh\DomPDF\Facade as PDF;
+use Modules\Trip\Models\Trip;
+
 // use JasperPHP\JasperPHP as JasperPHP;
 class InvoiceController extends Controller
 {
@@ -404,4 +407,12 @@ class InvoiceController extends Controller
         else
             return back()->with('success', 'تم إلغاء الفاتورة بنجاح');
     }
+
+    public function invoice(Trip $trip)
+
+    {
+        $pdf = PDF::loadView('invoice',compact('trip'));
+        return $pdf->download('invoice.pdf');
+    }
+
 }
