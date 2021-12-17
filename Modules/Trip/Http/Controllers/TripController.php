@@ -108,6 +108,7 @@ class TripController extends Controller
     {
         $trip = Trip::find($id);
         $expenses = Expense::where('trip_id', $id)->get();
+        // dd($trip->stations);
         return view('trip::show', compact('expenses', 'trip'));
     }
 
@@ -141,12 +142,11 @@ class TripController extends Controller
             return back()->withErrors(' المحطات المدخله اكتر من الموجوده');
         } else {
 
-            for ($i = 0; $i < count($x); $i++) {
-
-
+            for ($i = 0; $i <count($stations);$i++) {
                 $x[$i]->update([
                     'name' => $stations[$i],
                 ]);
+           
             }
         }
 

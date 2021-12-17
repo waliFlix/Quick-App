@@ -119,7 +119,14 @@
                                             <td>{{ $trip->note }}</td>
                                             <td>{{ $trip->customer->name ?? null }}</td>
                                             <td>{{ $trip->EstimatedTime }}</td>
-                                            <td>{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) ?? null }}</td>
+
+                                            <td>
+                                                @foreach ($trip->stations as $item)
+                                                    {{ $item['name'] ?? null }}
+                                                @endforeach
+                                            </td>
+
+
                                             <td>{{ $trip->created_at->format('Y-m-d') }}</td>
 
                                             <td>
@@ -136,7 +143,7 @@
                                                             data-stations="{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) }}"
                                                             data-action="{{ route('trips.update', $trip->id) }}">
                                                             <i class="fa fa-edit">
-                                                            
+
                                                             </i>
                                                             تعديل</a>
                                                         @if ($trip->status == 0)

@@ -89,6 +89,13 @@
             color: #fff;
         }
 
+        .container {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+
+        }
+
     </style>
 @endpush
 
@@ -138,7 +145,11 @@
                                     <td>{{ $trip->customer->name ?? null }}</td>
                                     <td>{{ $trip->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $trip->EstimatedTime }}</td>
-                                    <td>{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) ?? null }}</td>
+                                    <td>
+                                        @foreach ($trip->stations as $item)
+                                            {{ $item['name'] ?? null }}
+                                        @endforeach
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -181,9 +192,9 @@
 
 
 
-                <div style="display:flex; aligin-item:center; height:10%; ">
-                    <a href="/station/{{ $trip->id }}" style="bottom:10px; left:10%">
-                        <button type="submit" class="btn btn-primary"> تعديل المحطه </button>
+                <div class="container">
+                    <a href="/station/{{ $trip->id }}">
+                        <button type="submit" class="btn btn-primary container-a "> تعديل المحطه </button>
                     </a>
                 </div>
 

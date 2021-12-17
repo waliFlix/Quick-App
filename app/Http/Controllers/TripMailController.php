@@ -13,8 +13,11 @@ class TripMailController extends Controller
     {
        
        
-
-        Mail::to("creaspo6@gmail.com")->send(new TripMail($trip));
+        /**
+         * To test this fetchers put your email 
+         * insted of $trip->customer->email
+         */
+        Mail::to($trip->customer->email)->send(new TripMail($trip));
 
         return back()->with('success', 'تم ارسال البريد بنجاح ');
     }

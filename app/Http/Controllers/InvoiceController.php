@@ -411,6 +411,7 @@ class InvoiceController extends Controller
     public function invoice(Trip $trip)
 
     {
+        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('invoice',compact('trip'));
         return $pdf->download('invoice.pdf');
     }
