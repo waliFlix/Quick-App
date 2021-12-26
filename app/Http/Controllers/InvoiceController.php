@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\{Invoice, Bill, BillItem};
 use Illuminate\Support\Collection;
 use App\{Cheque, Safe, Payment, Expense};
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Modules\Trip\Models\Trip;
 
 // use JasperPHP\JasperPHP as JasperPHP;
@@ -411,9 +411,8 @@ class InvoiceController extends Controller
     public function invoice(Trip $trip)
 
     {
-        PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdf = PDF::loadView('invoice',compact('trip'));
-        return $pdf->download('invoice.pdf');
+        return $pdf->stream('invoice.pdf');
     }
 
 }

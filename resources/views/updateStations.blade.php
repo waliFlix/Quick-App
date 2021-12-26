@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app', ['datatable' => true])
+@extends('layouts.dashboard.app')
 
 @section('title', 'الرحلات الوسطيه')
 
@@ -127,33 +127,33 @@
                                     <td>{{ $trip->customer->name ?? null }}</td>
                                     <td>{{ $trip->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $trip->EstimatedTime }}</td>
-                                    <td>{{ str_replace(['[', ']', "\""], '', $trip->stations->pluck('name')) ?? null }}</td>
+                                    <td>
+                                        @foreach ($trip->stations as $item)
+                                            {{ $item['name'] ?? null }}
+                                        @endforeach
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-
-
-                <div>
-                    <div id="progress">
+                <div dir="rtl">
+                    <div id="progress" >
                         <div id="progress-bar"></div>
                         <ul id="progress-num">
-                            <li class="step active">{{ $trip->fromState->name }}</li>
+                            <li class="step active" >{{ $trip->fromState->name }}</li>
                             @foreach ($trip->stations as $item)
-                                <li class="step">{{ $item['name'] }}</li>
+                                <li class="step" name="mid">{{ $item['name'] }}</li>
                             @endforeach
 
                             <li class="step">{{ $trip->toState->name }}</li>
                         </ul>
 
-
                     </div>
-                    
+
                     <button id="progress-next" class="btn">تعديل المحطه</button>
                     <button id="progress-prev" class="btn" disabled></button>
-
                 </div>
 
                 <div class="flex-1">
@@ -173,11 +173,11 @@
 
             @push('js')
                 <script>
-                    $(function() {
-                        $('table#bills-table').dataTable({
-                            ordering: false,
-                        })
-                    });
+                    // $(function() {
+                    //     $('table#bills-table').dataTable({
+                    //         ordering: false,
+                    //     })
+                    // });
                     const progressBar = document.getElementById("progress-bar");
                     const progressNext = document.getElementById("progress-next");
                     const progressPrev = document.getElementById("progress-prev");
